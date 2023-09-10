@@ -8,18 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		7F69E4142AADDC1200F520FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F69E4132AADDC1200F520FF /* AppDelegate.swift */; };
-		7F69E4162AADDC1200F520FF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F69E4152AADDC1200F520FF /* ViewController.swift */; };
+		7F69E4162AADDC1200F520FF /* AdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F69E4152AADDC1200F520FF /* AdminViewController.swift */; };
 		7F69E4182AADDC1300F520FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F69E4172AADDC1300F520FF /* Assets.xcassets */; };
 		7F69E41B2AADDC1300F520FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F69E4192AADDC1300F520FF /* Main.storyboard */; };
+		7F69E4232AADE20C00F520FF /* AdminViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F69E4222AADE20C00F520FF /* AdminViewModel.swift */; };
+		7F69E4272AADE2D800F520FF /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F69E4262AADE2D800F520FF /* Device.swift */; };
+		7F69E4292AADE37900F520FF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F69E4282AADE37900F520FF /* NetworkManager.swift */; };
+		7F69E42B2AADEEAB00F520FF /* SecurityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F69E42A2AADEEAB00F520FF /* SecurityManager.swift */; };
+		7F69E42F2AAE062700F520FF /* name_generator.c in Sources */ = {isa = PBXBuildFile; fileRef = 7F69E42E2AAE062700F520FF /* name_generator.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7F69E4102AADDC1200F520FF /* HelloDevice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloDevice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F69E4132AADDC1200F520FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7F69E4152AADDC1200F520FF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7F69E4152AADDC1200F520FF /* AdminViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminViewController.swift; sourceTree = "<group>"; };
 		7F69E4172AADDC1300F520FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7F69E41A2AADDC1300F520FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7F69E41C2AADDC1300F520FF /* HelloDevice.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HelloDevice.entitlements; sourceTree = "<group>"; };
+		7F69E4222AADE20C00F520FF /* AdminViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminViewModel.swift; sourceTree = "<group>"; };
+		7F69E4262AADE2D800F520FF /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		7F69E4282AADE37900F520FF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		7F69E42A2AADEEAB00F520FF /* SecurityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityManager.swift; sourceTree = "<group>"; };
+		7F69E42C2AAE062700F520FF /* HelloDevice-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HelloDevice-Bridging-Header.h"; sourceTree = "<group>"; };
+		7F69E42D2AAE062700F520FF /* name_generator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = name_generator.h; sourceTree = "<group>"; };
+		7F69E42E2AAE062700F520FF /* name_generator.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = name_generator.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +50,8 @@
 			children = (
 				7F69E4122AADDC1200F520FF /* HelloDevice */,
 				7F69E4112AADDC1200F520FF /* Products */,
+				7F69E42C2AAE062700F520FF /* HelloDevice-Bridging-Header.h */,
+				7F69E4302AAE064E00F520FF /* Resources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -53,12 +67,41 @@
 			isa = PBXGroup;
 			children = (
 				7F69E4132AADDC1200F520FF /* AppDelegate.swift */,
-				7F69E4152AADDC1200F520FF /* ViewController.swift */,
+				7F69E4242AADE28F00F520FF /* AdminView */,
+				7F69E4252AADE2AB00F520FF /* Network&Model */,
 				7F69E4172AADDC1300F520FF /* Assets.xcassets */,
 				7F69E4192AADDC1300F520FF /* Main.storyboard */,
 				7F69E41C2AADDC1300F520FF /* HelloDevice.entitlements */,
 			);
 			path = HelloDevice;
+			sourceTree = "<group>";
+		};
+		7F69E4242AADE28F00F520FF /* AdminView */ = {
+			isa = PBXGroup;
+			children = (
+				7F69E4152AADDC1200F520FF /* AdminViewController.swift */,
+				7F69E4222AADE20C00F520FF /* AdminViewModel.swift */,
+			);
+			path = AdminView;
+			sourceTree = "<group>";
+		};
+		7F69E4252AADE2AB00F520FF /* Network&Model */ = {
+			isa = PBXGroup;
+			children = (
+				7F69E4262AADE2D800F520FF /* Device.swift */,
+				7F69E4282AADE37900F520FF /* NetworkManager.swift */,
+				7F69E42A2AADEEAB00F520FF /* SecurityManager.swift */,
+			);
+			path = "Network&Model";
+			sourceTree = "<group>";
+		};
+		7F69E4302AAE064E00F520FF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7F69E42D2AAE062700F520FF /* name_generator.h */,
+				7F69E42E2AAE062700F520FF /* name_generator.c */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -93,6 +136,7 @@
 				TargetAttributes = {
 					7F69E40F2AADDC1200F520FF = {
 						CreatedOnToolsVersion = 14.3;
+						LastSwiftMigration = 1430;
 					};
 				};
 			};
@@ -131,8 +175,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F69E4162AADDC1200F520FF /* ViewController.swift in Sources */,
+				7F69E42F2AAE062700F520FF /* name_generator.c in Sources */,
+				7F69E4232AADE20C00F520FF /* AdminViewModel.swift in Sources */,
+				7F69E4162AADDC1200F520FF /* AdminViewController.swift in Sources */,
+				7F69E4292AADE37900F520FF /* NetworkManager.swift in Sources */,
 				7F69E4142AADDC1200F520FF /* AppDelegate.swift in Sources */,
+				7F69E4272AADE2D800F520FF /* Device.swift in Sources */,
+				7F69E42B2AADEEAB00F520FF /* SecurityManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +317,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = HelloDevice/HelloDevice.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -286,6 +336,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = yulia.HelloDevice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "HelloDevice-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -295,6 +347,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = HelloDevice/HelloDevice.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -313,6 +366,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = yulia.HelloDevice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "HelloDevice-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

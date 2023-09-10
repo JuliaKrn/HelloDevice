@@ -1,0 +1,129 @@
+//
+//  ViewController.swift
+//  HelloDevice
+//
+//  Created by Yulia Kornichuk on 10/09/2023.
+//
+
+import Cocoa
+
+protocol AdminViewControllerProtocol: AnyObject {
+  func reload()
+  func showErrorAlert(message: String)
+}
+
+class AdminViewController: NSViewController, AdminViewControllerProtocol {
+
+  // MARK: Outlets & Properties
+  
+  @IBOutlet private weak var adminNameTextFiled: NSTextField!
+  @IBOutlet private weak var searchField: NSSearchField!
+  @IBOutlet private weak var scrollView: NSScrollView!
+  @IBOutlet private weak var tableView: NSTableView!
+  
+  private var viewModel: AdminViewModelProtocol!
+  
+  // MARK: Lifecycle
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+    // this should be done by another servies, sth like Coordinator, but no time :(
+    viewModel = AdminViewModel(adminView: self)
+    
+    if let adminName = viewModel.adminName {
+      adminNameTextFiled.stringValue = "Admin: \(adminName)"
+    }
+    
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(scrollViewDidScroll(_:)),
+      name: NSView.boundsDidChangeNotification,
+      object: scrollView.contentView
+    )
+  }
+  
+  deinit {
+    NotificationCenter.default.removeObserver(self)
+  }
+
+  // MARK: Protocol conformance
+  
+  func reload() {
+    DispatchQueue.main.async {
+      self.tableView.reloadData()
+    }
+  }
+  
+  func showErrorAlert(message: String) {
+    DispatchQueue.main.async {
+      let alert = NSAlert()
+      alert.messageText = "Error"
+      alert.informativeText = message
+      alert.alertStyle = .critical
+      alert.addButton(withTitle: "OK")
+      alert.runModal()
+    }
+  }
+  
+  // MARK: Search
+  
+  func controlTextDidChange(_ notification : Notification) {
+    guard let field = notification.object as? NSSearchField,
+          field == self.searchField else {
+      return
+    }
+    viewModel.filterDevices(with: field.stringValue)
+  }
+  
+  // MARK: Lazy loading
+  
+  @objc private func scrollViewDidScroll(_ notification: Notification) {
+    guard let scrollView = notification.object as? NSClipView else {
+      return
+    }
+    
+    let visibleRect = scrollView.visibleRect
+    let maxScrollY = scrollView.documentRect.height - visibleRect.height
+    let currentScrollY = visibleRect.origin.y
+    let threshold: CGFloat = 100.0
+    
+    if (maxScrollY - currentScrollY) < threshold {
+      viewModel.loadMoreDevices()
+    }
+  }
+}
+
+// MARK: - NSTableViewDataSource & NSTableViewDelegate
+
+extension AdminViewController: NSTableViewDataSource, NSTableViewDelegate {
+  func numberOfRows(in tableView: NSTableView) -> Int {
+    return viewModel.devices.count
+  }
+  
+  func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    guard let identifier = tableColumn?.identifier,
+          let cell = tableView.makeView(withIdentifier: identifier, owner: self) as? NSTableCellView else {
+      return nil
+    }
+    
+    let deviceModel = viewModel.devices[row]
+
+    var text: String?
+    switch identifier.rawValue {
+    case "name":
+      text = deviceModel.name
+    case "date":
+      text = deviceModel.latestScanDate
+    case "code":
+      text = deviceModel.code
+    default:
+      break
+    }
+
+    cell.textField?.stringValue = text ?? "-"
+    return cell
+  }
+}
+
+
