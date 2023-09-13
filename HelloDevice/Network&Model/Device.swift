@@ -12,7 +12,6 @@ struct DevicesResult: Decodable {
 }
 
 struct Device: Decodable {
-  //let id: Int
   let name: String?
   let code: String?
   let latestScanDate: String?

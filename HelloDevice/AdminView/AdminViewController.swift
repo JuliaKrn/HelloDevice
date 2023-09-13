@@ -21,16 +21,15 @@ class AdminViewController: NSViewController, AdminViewControllerProtocol {
   @IBOutlet private weak var scrollView: NSScrollView!
   @IBOutlet private weak var tableView: NSTableView!
   
-  private var viewModel: AdminViewModelProtocol!
+  private let dateFormatter = DateFormatter()
+  
+  var viewModel: AdminViewModelProtocol!
   
   // MARK: Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    // this should be done by another servies, sth like Coordinator, but no time :(
-    viewModel = AdminViewModel(adminView: self)
-    
     if let adminName = viewModel.adminName {
       adminNameTextFiled.stringValue = "Admin: \(adminName)"
     }
@@ -62,8 +61,24 @@ class AdminViewController: NSViewController, AdminViewControllerProtocol {
       alert.informativeText = message
       alert.alertStyle = .critical
       alert.addButton(withTitle: "OK")
-      alert.runModal()
+      alert.addButton(withTitle: "Retry")
+      
+      let response = alert.runModal()
+    
+      switch response {
+      case .alertFirstButtonReturn:
+        break
+      case .alertSecondButtonReturn:
+        self.retryLoad()
+      default:
+        break
+      }
+      
     }
+  }
+  
+  private func retryLoad() {
+    viewModel.loadMoreDevices()
   }
   
   // MARK: Search
@@ -114,7 +129,7 @@ extension AdminViewController: NSTableViewDataSource, NSTableViewDelegate {
     case "name":
       text = deviceModel.name
     case "date":
-      text = deviceModel.latestScanDate
+      text = formatScanDate(deviceModel.latestScanDate)
     case "code":
       text = deviceModel.code
     default:
@@ -123,6 +138,17 @@ extension AdminViewController: NSTableViewDataSource, NSTableViewDelegate {
 
     cell.textField?.stringValue = text ?? "-"
     return cell
+  }
+  
+  private func formatScanDate(_ dateString: String?) -> String? {
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
+    
+    guard let dateString, let date = dateFormatter.date(from: dateString) else {
+      return nil
+    }
+    
+    dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+    return  dateFormatter.string(from: date)
   }
 }
 
